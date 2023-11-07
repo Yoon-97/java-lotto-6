@@ -27,7 +27,7 @@ public class Lotto {
             }
         }
     }
-    public void inputRound() {
+    public void getLottoNumber() {
         for (String number : Console.readLine().split(",")) {
             if (!Character.isDigit(number.charAt(0))) {
                 throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
@@ -36,11 +36,6 @@ public class Lotto {
         }
     }
 
-        public List getLottoNumber() {
-        String lottoNumber = Console.readLine();
-
-        return ;
-    }
 
     // TODO: 추가 기능 구현
 }
