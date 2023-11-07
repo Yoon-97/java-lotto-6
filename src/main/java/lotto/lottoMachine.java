@@ -1,6 +1,10 @@
 package lotto;
 
 public class lottoMachine {
+
+    public int getPrice() {
+
+    }
     public int buyLotto(int price) {
         System.out.println("구입금액을 입력해 주세요.");
         if (price % 1000 != 0) {

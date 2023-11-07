@@ -41,14 +41,18 @@ public class Lotto {
         return lottoNumber;
     }
 
-    public int getBonusNumber() {
-        System.out.println("보너스 번호를 입력해 주세요.");
-        String input = Console.readLine();
+    public void validateNumber(String input) {
         for (char i : input.toCharArray()) {
             if (!Character.isDigit(i)) {
                 throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
             }
         }
+    }
+
+    public int getBonusNumber() {
+        System.out.println("보너스 번호를 입력해 주세요.");
+        String input = Console.readLine();
+        validateNumber(input);
        int round = Integer.parseInt(input);
         return round;
     }
