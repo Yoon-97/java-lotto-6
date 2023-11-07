@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.List;
 import camp.nextstep.edu.missionutils.Console;
 public class Lotto {
@@ -19,7 +20,7 @@ public class Lotto {
     private void validateDuplicate(List<Integer> numbers) {
         int[] check = new int[45];
         for (Integer i : numbers) {
-            check[i]++;
+            check[i-1]++;
         }
         for (int i : check) {
             if (i > 1) {
@@ -27,13 +28,15 @@ public class Lotto {
             }
         }
     }
-    public void getLottoNumber() {
+    public List<Integer> getLottoNumber() {
+        List<Integer> lottoNumber = new ArrayList<>();
         for (String number : Console.readLine().split(",")) {
             if (!Character.isDigit(number.charAt(0))) {
                 throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
             }
-            numbers.add(Integer.parseInt(number));
+            lottoNumber.add(Integer.parseInt(number));
         }
+        return lottoNumber;
     }
 
 
