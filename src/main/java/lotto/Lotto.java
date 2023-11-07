@@ -6,17 +6,30 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        validate(numbers);
+        validateSize(numbers);
         this.numbers = numbers;
     }
 
-    private void validate(List<Integer> numbers) {
+    private void validateSize(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6자리 입니다");
         }
     }
 
-    public List getLottoNumber() {
+    private void validateDuplicate(List<Integer> numbers) {
+        int[] check = new int[45];
+        for (Integer i : numbers) {
+            check[i]++;
+        }
+        for (int i : check) {
+            if (i > 1) {
+                throw new IllegalArgumentException("[ERROR] 로또 번호는 중복 될 수 없습니다.");
+            }
+        }
+    }
+
+
+        public List getLottoNumber() {
         String lottoNumber = Console.readLine();
 
         return ;
