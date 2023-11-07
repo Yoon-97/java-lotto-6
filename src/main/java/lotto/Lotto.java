@@ -49,6 +49,7 @@ public class Lotto {
             }
         }
         round = Integer.parseInt(input);
+        return 0;
     }
 
     public int buyLotto(int price) {
@@ -56,7 +57,7 @@ public class Lotto {
         if (price % 1000 != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 구입하여야 합니다.");
         }
-        int countLotto = price / 1000
+        int countLotto = price / 1000;
         System.out.println(countLotto + "개를 구매했습니다.");
         //구매한 로또 갯수 리턴
         return countLotto;
