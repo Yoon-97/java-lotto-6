@@ -21,6 +21,12 @@ public class LottoMachine {
         }
     }
 
+    private void validateBonusDuplicate(Lotto lotto, int bonus) {
+        if (lotto.getLottoNumbers().contains(bonus)) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 중복하여 설정할 수 없습니다.");
+        }
+    }
+
     public int getPrice() {
         System.out.println("구입금액을 입력해 주세요.");
         String input = Console.readLine();
@@ -43,6 +49,7 @@ public class LottoMachine {
         List<Lotto> randomLottos = generateRandomLottos(buyLotto(getPrice()));
         Lotto lotto = new Lotto(inputLottoNumber());
         int bonusNumber = inputBonusNumber();
+        validateBonusDuplicate(lotto, bonusNumber);
     }
 
     public List<Integer> inputLottoNumber() {

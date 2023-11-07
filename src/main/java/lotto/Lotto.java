@@ -27,7 +27,6 @@ public class Lotto {
             if (number > 45 || number < 1) {
                 throw new IllegalArgumentException("[ERROR] 로또 번호는 1~45 입니다");
             }
-
         }
     }
 
