@@ -48,8 +48,8 @@ public class Lotto {
                 throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
             }
         }
-        round = Integer.parseInt(input);
-        return 0;
+       int round = Integer.parseInt(input);
+        return round;
     }
 
     public int buyLotto(int price) {
