@@ -37,18 +37,6 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getLottoNumber() {
-        List<Integer> lottoNumber = new ArrayList<>();
-        System.out.println("당첨 번호를 입력해 주세요.");
-        for (String number : Console.readLine().split(",")) {
-            if (!Character.isDigit(number.charAt(0))) {
-                throw new IllegalArgumentException("[ERROR] 유효한 숫자를 입력해주세요");
-            }
-            lottoNumber.add(Integer.parseInt(number));
-        }
-        return lottoNumber;
-    }
-
     public int getBonusNumber() {
         System.out.println("보너스 번호를 입력해 주세요.");
         String input = Console.readLine();

@@ -25,17 +25,27 @@ public class LottoMachine {
 
     public void lottoStart() {
         List<List<Integer>> randomLottos = new ArrayList<>();
-        randomLottos = RandomLotto.generateRandomLotto(buyLotto(getPrice()));
-        printRandomLotto(randomLottos);
-    }
+        printRandomLotto(RandomLotto.generateRandomLotto(buyLotto(getPrice())));
 
+    }
+    public List<Integer> inputLottoNumber() {
+        List<Integer> lottoNumber = new ArrayList<>();
+        System.out.println("당첨 번호를 입력해 주세요.");
+        for (String number : Console.readLine().split(",")) {
+            if (!Character.isDigit(number.charAt(0))) {
+                throw new IllegalArgumentException("[ERROR] 유효한 숫자를 입력해주세요");
+            }
+            lottoNumber.add(Integer.parseInt(number));
+        }
+        return lottoNumber;
+    }
 
     public int buyLotto(int price) {
         if (price % 1000 != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 구입하여야 합니다.");
         }
         int countLotto = price / 1000;
-        System.out.println(countLotto + "개를 구매했습니다.");
+        System.out.println("\n" + countLotto + "개를 구매했습니다.");
         //구매한 로또 갯수 리턴
         return countLotto;
     }
