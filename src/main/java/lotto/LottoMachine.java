@@ -1,14 +1,18 @@
 package lotto;
 
-
 import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoMachine {
-    LottoMachine(){}
+    int winCount;
+
+    LottoMachine() {
+    }
+
     public static void printRandomLotto(List<List<Integer>> randomLottos) {
     }
+
     private void validateNumber(String input) {
         for (char i : input.toCharArray()) {
             if (!Character.isDigit(i)) {
@@ -16,6 +20,7 @@ public class LottoMachine {
             }
         }
     }
+
     public int getPrice() {
         System.out.println("구입금액을 입력해 주세요.");
         String input = Console.readLine();
@@ -23,14 +28,24 @@ public class LottoMachine {
         return Integer.parseInt(input);
     }
 
+    public void generateRandomLottos(int lottoCount) {
+        List<Lotto> randomLottos = new ArrayList<>();
+        for (int i = 0; i < lottoCount; i++) {
+            Lotto lotto = new Lotto(RandomLotto.getRandomLottoNumbers());
+            randomLottos.add(lotto);
+        }
+    }
+
     public void lottoStart() {
         List<List<Integer>> randomLottos = new ArrayList<>();
         printRandomLotto(RandomLotto.generateRandomLotto(buyLotto(getPrice())));
-
+        Lotto lotto = new Lotto(inputLottoNumber());
+        int bonusNumber = getBonusNumber();
     }
+
     public List<Integer> inputLottoNumber() {
         List<Integer> lottoNumber = new ArrayList<>();
-        System.out.println("당첨 번호를 입력해 주세요.");
+        System.out.println("\n당첨 번호를 입력해 주세요.");
         for (String number : Console.readLine().split(",")) {
             if (!Character.isDigit(number.charAt(0))) {
                 throw new IllegalArgumentException("[ERROR] 유효한 숫자를 입력해주세요");
@@ -38,6 +53,13 @@ public class LottoMachine {
             lottoNumber.add(Integer.parseInt(number));
         }
         return lottoNumber;
+    }
+
+    public int getBonusNumber() {
+        System.out.println("\n보너스 번호를 입력해 주세요.");
+        String input = Console.readLine();
+        validateNumber(input);
+        return Integer.parseInt(input);
     }
 
     public int buyLotto(int price) {
@@ -49,4 +71,6 @@ public class LottoMachine {
         //구매한 로또 갯수 리턴
         return countLotto;
     }
+
+
 }
