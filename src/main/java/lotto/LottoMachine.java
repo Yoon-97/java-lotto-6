@@ -10,7 +10,7 @@ public class LottoMachine {
     LottoMachine() {
     }
 
-    public static void printRandomLotto(List<List<Integer>> randomLottos) {
+    public static void printRandomLotto(List<Lotto> randomLottos) {
     }
 
     private void validateNumber(String input) {
@@ -28,19 +28,21 @@ public class LottoMachine {
         return Integer.parseInt(input);
     }
 
-    public void generateRandomLottos(int lottoCount) {
+    public List<Lotto> generateRandomLottos(int lottoCount) {
         List<Lotto> randomLottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             Lotto lotto = new Lotto(RandomLotto.getRandomLottoNumbers());
             randomLottos.add(lotto);
+            System.out.println(lotto.getLottoNumbers());
         }
+        System.out.println();
+        return randomLottos;
     }
 
     public void lottoStart() {
-        List<List<Integer>> randomLottos = new ArrayList<>();
-        printRandomLotto(RandomLotto.generateRandomLotto(buyLotto(getPrice())));
+        List<Lotto> randomLottos = generateRandomLottos(buyLotto(getPrice()));
         Lotto lotto = new Lotto(inputLottoNumber());
-        int bonusNumber = getBonusNumber();
+        int bonusNumber = inputBonusNumber();
     }
 
     public List<Integer> inputLottoNumber() {
@@ -55,7 +57,7 @@ public class LottoMachine {
         return lottoNumber;
     }
 
-    public int getBonusNumber() {
+    public int inputBonusNumber() {
         System.out.println("\n보너스 번호를 입력해 주세요.");
         String input = Console.readLine();
         validateNumber(input);
