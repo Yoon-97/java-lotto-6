@@ -32,13 +32,18 @@ public class Lotto {
         List<Integer> lottoNumber = new ArrayList<>();
         for (String number : Console.readLine().split(",")) {
             if (!Character.isDigit(number.charAt(0))) {
-                throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
+                throw new IllegalArgumentException("[ERROR] 유효한 숫자를 입력해주세요");
             }
             lottoNumber.add(Integer.parseInt(number));
         }
         return lottoNumber;
     }
 
-
-    // TODO: 추가 기능 구현
+    public int buyLotto(int price) {
+        if (price % 1000 != 0) {
+            throw new IllegalArgumentException("[ERROR] 1,000원 단위로 구입하여야 합니다.");
+        }
+        //구매한 로또 갯수 리턴
+        return price / 1000;
+    }
 }
