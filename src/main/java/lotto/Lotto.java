@@ -18,6 +18,13 @@ public class Lotto {
         }
     }
 
+    private void validateNumber(String input) {
+        for (char i : input.toCharArray()) {
+            if (!Character.isDigit(i)) {
+                throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
+            }
+        }
+    }
     private void validateDuplicate(List<Integer> numbers) {
         int[] check = new int[45];
         for (Integer i : numbers) {
@@ -29,6 +36,7 @@ public class Lotto {
             }
         }
     }
+
     public List<Integer> getLottoNumber() {
         List<Integer> lottoNumber = new ArrayList<>();
         System.out.println("당첨 번호를 입력해 주세요.");
@@ -39,14 +47,6 @@ public class Lotto {
             lottoNumber.add(Integer.parseInt(number));
         }
         return lottoNumber;
-    }
-
-    public void validateNumber(String input) {
-        for (char i : input.toCharArray()) {
-            if (!Character.isDigit(i)) {
-                throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
-            }
-        }
     }
 
     public int getBonusNumber() {
