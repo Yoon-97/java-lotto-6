@@ -8,6 +8,7 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validateSize(numbers);
+        validateDuplicate(numbers);
         this.numbers = numbers;
     }
 
@@ -51,7 +52,6 @@ public class Lotto {
        int round = Integer.parseInt(input);
         return round;
     }
-
     public int buyLotto(int price) {
         System.out.println("구입금액을 입력해 주세요.");
         if (price % 1000 != 0) {
