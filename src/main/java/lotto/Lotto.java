@@ -27,7 +27,14 @@ public class Lotto {
             }
         }
     }
-
+    public void inputRound() {
+        for (String number : Console.readLine().split(",")) {
+            if (!Character.isDigit(number.charAt(0))) {
+                throw new IllegalArgumentException("유효한 숫자를 입력해주세요");
+            }
+            numbers.add(Integer.parseInt(number));
+        }
+    }
 
         public List getLottoNumber() {
         String lottoNumber = Console.readLine();
