@@ -9,11 +9,11 @@ public class PrintLotto {
         System.out.println("\n당첨 통계\n---");
     }
 
-    public static void printSuccessMessage(String message, int winCountResult) {
+    public static void printLottoResult(String message, int winCountResult) {
         System.out.println(message + winCountResult + "개");
     }
 
-    public static void printRevenueRate(double EarningRate) {
+    public static void printYield(double EarningRate) {
         System.out.println("총 수익률은 " + String.format("%.1f", EarningRate) + "%입니다.");
     }
 }

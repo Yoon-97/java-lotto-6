@@ -114,11 +114,11 @@ public class LottoMachine {
             Yield = Yield + ((double) (result.getReward()) * winStatus.get(result));
         }
         for (int i = LottoResult.values().length - 2; i >= 0; i--) {
-            PrintLotto.printSuccessMessage(LottoResult.values()[i].getMessage(),
+            PrintLotto.printLottoResult(LottoResult.values()[i].getMessage(),
                     winStatus.get(LottoResult.values()[i]));
         }
         Yield /= (countLotto * LOTTO_PRICE);
-        PrintLotto.printRevenueRate(Yield * 100);
+        PrintLotto.printYield(Yield * 100);
     }
 
     //결과 저장 map 초기화
