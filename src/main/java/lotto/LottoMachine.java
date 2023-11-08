@@ -54,7 +54,7 @@ public class LottoMachine {
 
     public List<Integer> inputLottoNumber() {
         List<Integer> lottoNumber = new ArrayList<>();
-        System.out.println("\n당첨 번호를 입력해 주세요.");
+        System.out.println("당첨 번호를 입력해 주세요.");
         for (String number : Console.readLine().split(",")) {
             if (!Character.isDigit(number.charAt(0))) {
                 throw new IllegalArgumentException("[ERROR] 유효한 숫자를 입력해주세요");
@@ -81,5 +81,20 @@ public class LottoMachine {
         return countLotto;
     }
 
+    public void LottoResult(List<Lotto> randomLottos, Lotto lotto) {
+        winCount = 0;
+        for (Lotto randomLotto : randomLottos) {
+            winCount = isCorrect(randomLotto, lotto);
+        }
+    }
 
+    private int isCorrect(Lotto random, Lotto lotto) {
+        int count = 0;
+        for (Integer i : lotto.getLottoNumbers()) {
+            if (random.getLottoNumbers().contains(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
