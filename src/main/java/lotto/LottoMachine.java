@@ -102,14 +102,12 @@ public class LottoMachine {
         }
     }
 
-    private void calculateYield(List<LottoResult> winStatus, int lottoAmount) {
-        double EarningRate = 0;
+    private double calculateYield(List<LottoResult> winStatus, int lottoAmount) {
+        double Yield = 0;
         for (LottoResult result : winStatus) {
-            EarningRate =
-                    EarningRate + ((double) (result.getReward()) / (lottoAmount * TICKET_PRICE) * (result.get(
-                            rank)) * (PERCENTAGE));
-
+            Yield = Yield + ((double) (result.getReward()));
         }
-        OutputView.printRevenueRate(EarningRate);
+        Yield /= (countLotto * LOTTO_PRICE) * 100;
+        return Yield;
     }
 }
