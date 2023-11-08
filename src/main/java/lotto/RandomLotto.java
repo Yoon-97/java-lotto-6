@@ -9,7 +9,6 @@ public class RandomLotto {
     public RandomLotto() {
     }
 
-    //순서 리팯토링
     private static final int MAX_NUMBER = 45;
     private static final int MIN_NUMBER = 1;
     private static final int COUNT_NUMBER = 6;
@@ -21,14 +20,4 @@ public class RandomLotto {
         Collections.sort(randomLotto);
         return randomLotto;
     }
-//    public static List<List<Integer>> generateRandomLotto(int countLotto) {
-//        List<List<Integer>> randomLottos = new ArrayList<>();
-//        for (int i = 0; i < countLotto; i++) {
-//            randomLottos.add(getRandomLottoNumbers());
-//            System.out.println(randomLottos.get(i));
-//        }
-//        return randomLottos;
-//    }
-
-
 }

@@ -1,10 +1,6 @@
 package lotto;
 
 public class PrintLotto {
-//    public static void printTicketCount(int count) {
-//        System.out.println(count + TICKET_COUNT);
-//    }
-
     public static void printSuccessResult() {
         System.out.println("\n당첨 통계\n---");
     }
