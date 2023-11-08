@@ -2,17 +2,17 @@ package lotto;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
     static int countLotto;
 
-    LottoMachine() {
-    }
-
-    public static void printRandomLotto(List<Lotto> randomLottos) {
-    }
+    LottoMachine() {}
 
     private void validateNumber(String input) {
         for (char i : input.toCharArray()) {
@@ -92,7 +92,7 @@ public class LottoMachine {
     }
 
     private void getWinStatus(List<Lotto> randomLottos, Lotto lotto, int bonusNumber) {
-        List<LottoResult> winStatus = new ArrayList<>();
+        Map <LottoResult, Integer> winStatus = new LinkedHashMap<>();
         boolean isBonus = false;
         for (Lotto randomLotto : randomLottos) {
             if (randomLotto.getLottoNumbers().contains(bonusNumber)) {
@@ -102,12 +102,24 @@ public class LottoMachine {
         }
     }
 
-    private double calculateYield(List<LottoResult> winStatus, int lottoAmount) {
+    private void calculateYield(List<LottoResult> winStatus, int lottoAmount) {
         double Yield = 0;
+        PrintLotto.printSuccessResult();
         for (LottoResult result : winStatus) {
             Yield = Yield + ((double) (result.getReward()));
+            PrintLotto.printSuccessMessage(result.getMessage(), );
         }
         Yield /= (countLotto * LOTTO_PRICE) * 100;
-        return Yield;
+
+        PrintLotto.printRevenueRate(Yield) ;
+    }
+
+    //결과 저장 map 초기화
+    private Map<LottoResult, Integer> setWinStatus() {
+        Map<LottoResult, Integer> result = new LinkedHashMap<>();
+        for (LottoResult rank : LottoResult.values()) {
+            result.put(rank, 0);
+        }
+        return result;
     }
 }

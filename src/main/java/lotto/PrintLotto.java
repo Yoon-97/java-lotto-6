@@ -1,6 +1,6 @@
 package lotto;
 
-public class printLotto {
+public class PrintLotto {
     public static void printTicketCount(int count) {
         System.out.println(count + TICKET_COUNT);
     }

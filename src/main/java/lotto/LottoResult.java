@@ -14,12 +14,12 @@ public enum LottoResult {
     private int winCount;
     private String message;
 
-
     LottoResult(int reward, int winCount, String message) {
         this.reward = reward;
         this.winCount = winCount;
         this.message = message;
     }
+
     public static LottoResult valueOf(int winCount, boolean isBonus) {
         if (winCount < LEAST_WIN_COUNT) {
             return LOSE;
