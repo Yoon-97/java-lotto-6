@@ -42,4 +42,5 @@ public enum LottoResult {
     public int getReward() {
         return reward;
     }
+
 }

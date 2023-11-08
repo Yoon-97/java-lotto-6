@@ -2,17 +2,16 @@ package lotto;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
     static int countLotto;
 
-    LottoMachine() {}
+    LottoMachine() {
+    }
 
     private void validateNumber(String input) {
         for (char i : input.toCharArray()) {
@@ -47,10 +46,12 @@ public class LottoMachine {
     }
 
     public void lottoStart() { //함수명 run으로 변경
-        List<Lotto> randomLottos = generateRandomLottos(buyLotto(getPrice()));
+        buyLotto(getPrice());
+        List<Lotto> randomLottos = generateRandomLottos(countLotto);
         Lotto lotto = new Lotto(inputLottoNumber());
         int bonusNumber = inputBonusNumber();
         validateBonusDuplicate(lotto, bonusNumber);
+        calculateYield(setWinStatus(), randomLottos, lotto, bonusNumber);
     }
 
     public List<Integer> inputLottoNumber() {
@@ -80,6 +81,7 @@ public class LottoMachine {
         System.out.println("\n" + countLotto + "개를 구매했습니다.");
     }
 
+    //로또 번호 맞는지 비교
     private int getWinCount(Lotto random, Lotto lotto) {
         int count = 0;
         for (Integer i : lotto.getLottoNumbers()) {
@@ -87,39 +89,44 @@ public class LottoMachine {
                 count++;
             }
         }
-
         return count;
     }
 
-    private void getWinStatus(List<Lotto> randomLottos, Lotto lotto, int bonusNumber) {
-        Map <LottoResult, Integer> winStatus = new LinkedHashMap<>();
+    //당첨 결과 기록
+    private void getWinStatus(Map<LottoResult, Integer> winStatus, List<Lotto> randomLottos, Lotto lotto,
+                              int bonusNumber) {
         boolean isBonus = false;
         for (Lotto randomLotto : randomLottos) {
             if (randomLotto.getLottoNumbers().contains(bonusNumber)) {
                 isBonus = true;
             }
-            winStatus.add(LottoResult.valueOf(getWinCount(randomLotto, lotto), isBonus));
+            winStatus.put(LottoResult.valueOf(getWinCount(randomLotto, lotto), isBonus),
+                    winStatus.get(LottoResult.valueOf(getWinCount(randomLotto, lotto), isBonus)) + 1);
         }
     }
 
-    private void calculateYield(List<LottoResult> winStatus, int lottoAmount) {
+    private void calculateYield(Map<LottoResult, Integer> winStatus, List<Lotto> randomLottos, Lotto lotto,
+                                int bonusNumber) {
         double Yield = 0;
+        getWinStatus(winStatus, randomLottos, lotto, bonusNumber);
         PrintLotto.printSuccessResult();
-        for (LottoResult result : winStatus) {
-            Yield = Yield + ((double) (result.getReward()));
-            PrintLotto.printSuccessMessage(result.getMessage(), );
+        for (LottoResult result : winStatus.keySet()) {
+            Yield = Yield + ((double) (result.getReward()) * winStatus.get(result));
         }
-        Yield /= (countLotto * LOTTO_PRICE) * 100;
-
-        PrintLotto.printRevenueRate(Yield) ;
+        for (int i = LottoResult.values().length - 2; i >= 0; i--) {
+            PrintLotto.printSuccessMessage(LottoResult.values()[i].getMessage(),
+                    winStatus.get(LottoResult.values()[i]));
+        }
+        Yield /= (countLotto * LOTTO_PRICE);
+        PrintLotto.printRevenueRate(Yield * 100);
     }
 
     //결과 저장 map 초기화
     private Map<LottoResult, Integer> setWinStatus() {
-        Map<LottoResult, Integer> result = new LinkedHashMap<>();
+        Map<LottoResult, Integer> WinStatus = new LinkedHashMap<>();
         for (LottoResult rank : LottoResult.values()) {
-            result.put(rank, 0);
+            WinStatus.put(rank, 0);
         }
-        return result;
+        return WinStatus;
     }
 }
