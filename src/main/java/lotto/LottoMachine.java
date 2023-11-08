@@ -6,6 +6,7 @@ import java.util.List;
 
 public class LottoMachine {
     private static final int LOTTO_PRICE = 1000;
+    static int countLotto;
 
     LottoMachine() {
     }
@@ -71,14 +72,12 @@ public class LottoMachine {
         return Integer.parseInt(input);
     }
 
-    public int buyLotto(int price) {
+    public static void buyLotto(int price) {
         if (price % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 구입하여야 합니다.");
         }
-        int countLotto = price / LOTTO_PRICE;
+        countLotto = price / LOTTO_PRICE;
         System.out.println("\n" + countLotto + "개를 구매했습니다.");
-        //구매한 로또 갯수 리턴
-        return countLotto;
     }
 
     private int getWinCount(Lotto random, Lotto lotto) {
@@ -103,11 +102,11 @@ public class LottoMachine {
         }
     }
 
-    private void earningRate(Map<Ranking, Integer> result, int lottoAmount) {
+    private void calculateYield(List<LottoResult> winStatus, int lottoAmount) {
         double EarningRate = 0;
-        for (Ranking rank : result.keySet()) {
+        for (LottoResult result : winStatus) {
             EarningRate =
-                    EarningRate + ((double) (rank.getWinningAmount()) / (lottoAmount * TICKET_PRICE) * (result.get(
+                    EarningRate + ((double) (result.getReward()) / (lottoAmount * TICKET_PRICE) * (result.get(
                             rank)) * (PERCENTAGE));
 
         }
