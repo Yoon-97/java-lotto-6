@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoMachine {
-    int winCount;
+    private static final int LOTTO_PRICE = 1000;
 
     LottoMachine() {
     }
@@ -45,7 +45,7 @@ public class LottoMachine {
         return randomLottos;
     }
 
-    public void lottoStart() {
+    public void lottoStart() { //함수명 run으로 변경
         List<Lotto> randomLottos = generateRandomLottos(buyLotto(getPrice()));
         Lotto lotto = new Lotto(inputLottoNumber());
         int bonusNumber = inputBonusNumber();
@@ -72,29 +72,45 @@ public class LottoMachine {
     }
 
     public int buyLotto(int price) {
-        if (price % 1000 != 0) {
+        if (price % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException("[ERROR] 1,000원 단위로 구입하여야 합니다.");
         }
-        int countLotto = price / 1000;
+        int countLotto = price / LOTTO_PRICE;
         System.out.println("\n" + countLotto + "개를 구매했습니다.");
         //구매한 로또 갯수 리턴
         return countLotto;
     }
 
-    public void LottoResult(List<Lotto> randomLottos, Lotto lotto) {
-        winCount = 0;
-        for (Lotto randomLotto : randomLottos) {
-            winCount = isCorrect(randomLotto, lotto);
-        }
-    }
-
-    private int isCorrect(Lotto random, Lotto lotto) {
+    private int getWinCount(Lotto random, Lotto lotto) {
         int count = 0;
         for (Integer i : lotto.getLottoNumbers()) {
             if (random.getLottoNumbers().contains(i)) {
                 count++;
             }
         }
+
         return count;
+    }
+
+    private void getWinStatus(List<Lotto> randomLottos, Lotto lotto, int bonusNumber) {
+        List<LottoResult> winStatus = new ArrayList<>();
+        boolean isBonus = false;
+        for (Lotto randomLotto : randomLottos) {
+            if (randomLotto.getLottoNumbers().contains(bonusNumber)) {
+                isBonus = true;
+            }
+            winStatus.add(LottoResult.valueOf(getWinCount(randomLotto, lotto), isBonus));
+        }
+    }
+
+    private void earningRate(Map<Ranking, Integer> result, int lottoAmount) {
+        double EarningRate = 0;
+        for (Ranking rank : result.keySet()) {
+            EarningRate =
+                    EarningRate + ((double) (rank.getWinningAmount()) / (lottoAmount * TICKET_PRICE) * (result.get(
+                            rank)) * (PERCENTAGE));
+
+        }
+        OutputView.printRevenueRate(EarningRate);
     }
 }
